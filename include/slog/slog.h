@@ -33,6 +33,20 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef SLOG_SHARED
+#ifdef SLOG_EXPORT
+#ifdef _WIN32
+#define SLOG_API __declspec(dllexport)
+#else
+#define SLOG_API __attribute__((visibility("default")))
+#endif
+#else // SLOG_EXPORT
+#define SLOG_API __declspec(dllimport)
+#endif // SLOG_EXPORT
+#else // SLOG_SHARED
+#define SLOG_API
+#endif // SLOG_SHARED
+
 /* SLog version information */
 #define SLOG_VERSION_MAJOR      1
 #define SLOG_VERSION_MINOR      8
@@ -176,20 +190,20 @@ typedef struct SLogConfig {
     char sFilePath[SLOG_PATH_MAX];      // Output file path for logs
 } slog_config_t;
 
-const char* slog_version(uint8_t nShort);
-void slog_config_get(slog_config_t *pCfg);
-void slog_config_set(slog_config_t *pCfg);
+SLOG_API const char* slog_version(uint8_t nShort);
+SLOG_API void slog_config_get(slog_config_t *pCfg);
+SLOG_API void slog_config_set(slog_config_t *pCfg);
 
-void slog_separator_set(const char *pFormat, ...);
-void slog_callback_set(slog_cb_t callback, void *pContext);
-size_t slog_get_full_path(char *pFilePath, size_t nSize);
+SLOG_API void slog_separator_set(const char *pFormat, ...);
+SLOG_API void slog_callback_set(slog_cb_t callback, void *pContext);
+SLOG_API size_t slog_get_full_path(char *pFilePath, size_t nSize);
 
-void slog_enable(slog_flag_t eFlag);
-void slog_disable(slog_flag_t eFlag);
+SLOG_API void slog_enable(slog_flag_t eFlag);
+SLOG_API void slog_disable(slog_flag_t eFlag);
 
-void slog_init(const char* pName, uint16_t nFlags, uint8_t nTdSafe);
-void slog_display(slog_flag_t eFlag, uint8_t nNewLine, const char *pFormat, ...);
-void slog_destroy(); // Required only if (nTdSafe > 0 || nKeepOpen > 0)
+SLOG_API void slog_init(const char* pName, uint16_t nFlags, uint8_t nTdSafe);
+SLOG_API void slog_display(slog_flag_t eFlag, uint8_t nNewLine, const char *pFormat, ...);
+SLOG_API void slog_destroy(); // Required only if (nTdSafe > 0 || nKeepOpen > 0)
 
 #ifdef __cplusplus
 }
