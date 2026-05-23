@@ -33,7 +33,7 @@
 #include <limits.h>
 #include <errno.h>
 #include <time.h>
-#include "slog.h"
+#include "slog/slog.h"
 
 #ifdef __linux__
 #include <syscall.h>
