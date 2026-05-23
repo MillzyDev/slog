@@ -12,7 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <slog.h>
+
+#include "slog/slog.h"
 
 int logCallback(const char *pLog, size_t nLength, slog_flag_t eFlag, void *pCtx)
 {
