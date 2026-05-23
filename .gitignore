@@ -36,3 +36,5 @@ example/test_slog
 example/example
 build/
 *.log
+
+.idea
