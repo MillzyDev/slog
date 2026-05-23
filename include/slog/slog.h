@@ -37,9 +37,9 @@ extern "C" {
 #ifdef SLOG_EXPORT
 #ifdef _WIN32
 #define SLOG_API __declspec(dllexport)
-#else
+#else // _WIN32
 #define SLOG_API __attribute__((visibility("default")))
-#endif
+#endif // _WIN32
 #else // SLOG_EXPORT
 #define SLOG_API __declspec(dllimport)
 #endif // SLOG_EXPORT
